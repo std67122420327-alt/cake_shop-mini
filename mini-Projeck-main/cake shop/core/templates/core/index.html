@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{title}}
+{% endblock %}
+
+{% block content %}
+  <!-- Hero Section -->
+  <div class="food-hero">
+    <div class="container text-center">
+      <h1>🍕 ยินดีต้อนรับสู่ Food Shop 🍔</h1>
+      <p>อาหารอร่อยที่คุณชื่นชอบ พร้อมส่งถึงบ้านคุณ</p>
+    </div>
+  </div>
+  
+  <div class="container mt-4">
+    <h2 class="section-title text-center mb-4">
+      <i class="bi bi-fire"></i> เมนูยอดนิยม
+    </h2>
+    <div class="row g-4">
+      {% for food in foods %}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="card card-food">
+            <a href="{{ url_for('core.details', id=food.id) }}" style="text-decoration: none;">
+              <img src="{{food.img_url}}" alt="{{food.name}}" class="card-img-top">
+            </a>
+            <div class="card-body">
+              <h4 style="color: #333; font-weight: 700;">{{food.name}}</h4>
+              <div class="food-price">
+                <i class="bi bi-cash-coin"></i> {{food.price}} บาท
+              </div>
+              <div class="mt-2">
+                {% for cat in food.categories %}
+                  <a href="#" class="btn food-category btn-sm">
+                    {{cat.name}}
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <br>
+    {% include "core/pagination.html" %}
+  </div>
+{% endblock %}

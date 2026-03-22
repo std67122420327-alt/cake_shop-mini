@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{title}}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card" style="border: none; border-radius: 25px; padding: 40px; background: white; box-shadow: 0 15px 40px rgba(0,0,0,0.1);">
+          <div class="mb-4">
+            <h2 class="section-title">
+              <i class="bi bi-pencil-square"></i> {{title}}
+            </h2>
+          </div>
+          <form method="post" action="{{ url_for('food.edit_food', id=food.id) }}">
+            <div class="mb-4">
+              <label for="name" class="form-label" style="font-weight: 600; color: #333;">
+                <i class="bi bi-egg-fried"></i> ชื่ออาหาร
+              </label>
+              <input name="name" type="text" class="form-control" id="name" value="{{food.name}}" required style="border-radius: 15px; padding: 12px; border: 2px solid #e0e0e0;">
+            </div>
+            <div class="mb-4">
+              <label for="price" class="form-label" style="font-weight: 600; color: #333;">
+                <i class="bi bi-cash-coin"></i> ราคา (บาท)
+              </label>
+              <input name="price" type="text" class="form-control" id="price" value="{{food.price}}" required style="border-radius: 15px; padding: 12px; border: 2px solid #e0e0e0;">
+            </div>
+            <div class="mb-4">
+              <label for="description" class="form-label" style="font-weight: 600; color: #333;">
+                <i class="bi bi-card-text"></i> รายละเอียด
+              </label>
+              <textarea name="description" class="form-control" id="description" rows="4" style="border-radius: 15px; padding: 12px; border: 2px solid #e0e0e0;">{{food.description}}</textarea>
+            </div>
+            <div class="mb-4">
+              <label for="img_url" class="form-label" style="font-weight: 600; color: #333;">
+                <i class="bi bi-image"></i> URL รูปภาพ
+              </label>
+              <input name="img_url" type="text" class="form-control" id="img_url" value="{{food.img_url}}" required style="border-radius: 15px; padding: 12px; border: 2px solid #e0e0e0;">
+            </div>
+            <div class="mb-4">
+              <label for="food_categories" class="form-label" style="font-weight: 600; color: #333;">
+                <i class="bi bi-collection"></i> หมวดหมู่อาหาร
+              </label>
+              <select name="food_categories" class="form-select" aria-label="food_categories" multiple style="border-radius: 15px; padding: 12px; border: 2px solid #e0e0e0;">
+                {% for cat in food_categories %}
+                  <option value="{{cat.id}}" {% if cat in food.categories %}selected{% endif %}>{{cat.name}}</option>
+                {% endfor %}
+              </select>
+              <small class="text-muted">กด Ctrl (หรือ Cmd) ค้างไว้เพื่อเลือกหลายหมวดหมู่</small>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-lg" style="background: linear-gradient(135deg, #FFA726 0%, #FFB74D 100%); color: white; border: none; border-radius: 15px; padding: 12px; font-weight: 700;">
+                <i class="bi bi-check-circle"></i>
+                บันทึกการแก้ไข
+              </button>
+              <a href="{{ url_for('food.index') }}" class="btn btn-lg" style="background: #e0e0e0; color: #666; border: none; border-radius: 15px; padding: 12px; font-weight: 700;">
+                <i class="bi bi-x-circle"></i>
+                ยกเลิก
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

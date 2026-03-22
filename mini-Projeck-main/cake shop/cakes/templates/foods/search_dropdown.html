@@ -1,0 +1,19 @@
+{% if foods %}
+  <div style="position: absolute; top: 100%; left: 0; right: 0; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 1000; max-height: 400px; overflow-y: auto; margin-top: 10px;">
+    {% for food in foods %}
+      <a href="{{ url_for('core.details', id=food.id) }}" style="text-decoration: none; color: inherit; display: block; padding: 15px; border-bottom: 1px solid #e0e0e0; transition: all 0.3s ease;" onmouseover="this.style.background='#fff5f0'; this.style.paddingLeft='20px';" onmouseout="this.style.background='white'; this.style.paddingLeft='15px';">
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <img src="{{food.img_url}}" alt="{{food.name}}" style="width: 50px; height: 50px; border-radius: 10px; object-fit: cover;">
+          <div style="flex: 1;">
+            <h6 style="margin: 0; color: #333; font-weight: 600;">{{food.name}}</h6>
+            <p style="margin: 5px 0 0 0; color: #ff6b35; font-weight: 700;">{{food.price}} บาท</p>
+          </div>
+          <i class="bi bi-chevron-right" style="color: #999;"></i>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+  <script>
+    document.getElementById('search-dropdown').style.display = 'block';
+  </script>
+{% endif %}

@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{title}}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4 mb-5">
+    <div class="row">
+      <div class="col-12 mb-4">
+        <h1 class="section-title display-4">
+          <i class="bi bi-bookmark-star"></i> {{food.name}}
+        </h1>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <img src="{{food.img_url}}" alt="{{food.name}}" class="img-fluid food-detail-img w-100">
+      </div>
+      <div class="col-md-6">
+        <div class="card" style="border: none; border-radius: 20px; padding: 30px; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+          <h2 class="section-title">
+            <i class="bi bi-card-text"></i> รายละเอียด
+          </h2>
+          <p style="font-size: 1.2rem; color: #666; line-height: 1.8;">{{food.description}}</p>
+          
+          <h2 class="section-title mt-4">
+            <i class="bi bi-tag"></i> ราคา
+          </h2>
+          <div class="food-price" style="font-size: 1.5rem;">
+            <i class="bi bi-cash-coin"></i> {{food.price}} บาท
+          </div>
+          
+          <h2 class="section-title mt-4">
+            <i class="bi bi-collection"></i> หมวดหมู่
+          </h2>
+          <div>
+            {% for cat in food.categories %}
+              <a class="btn food-category">
+                {{cat.name}}
+              </a>
+            {% endfor %}
+          </div>
+          
+          <div class="mt-5">
+            <a href="{{ url_for('core.index') }}" class="btn btn-lg" style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white; border: none; border-radius: 25px; padding: 12px 30px;">
+              <i class="bi bi-arrow-left-circle"></i>
+              กลับหน้าแรก
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
+  <title>Food Shop - {% block title %}{% endblock %}
+  </title>
+  <style>
+    * {
+      font-family: 'Nunito', sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #fff5f0 0%, #ffe8e0 100%);
+      min-height: 100vh;
+      scroll-behavior: smooth;
+    }
+    
+    .food-hero {
+      background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 50%, #ffa600 100%);
+      color: white;
+      padding: 60px 0;
+      border-radius: 0 0 50px 50px;
+      box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+      margin-bottom: 40px;
+    }
+    
+    .food-hero h1 {
+      font-weight: 800;
+      font-size: 3.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .food-hero p {
+      font-size: 1.3rem;
+      margin-top: 15px;
+    }
+    
+    .card-food {
+      transition: all 0.4s ease;
+      border: none;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      background: white;
+    }
+    
+    .card-food:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(255, 107, 53, 0.3);
+    }
+    
+    .card-food img {
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    
+    .card-food:hover img {
+      transform: scale(1.1);
+    }
+    
+    .card-food .card-body {
+      padding: 20px;
+    }
+    
+    .food-price {
+      background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 25px;
+      display: inline-block;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+    
+    .food-category {
+      background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+      color: white !important;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 20px;
+      margin: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .food-category:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+    }
+    
+    .navbar {
+      background: white !important;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 15px 0;
+    }
+    
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .btn-search {
+      background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+      color: white;
+      border: none;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-search:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+    }
+    
+    .food-detail-img {
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    .section-title {
+      font-weight: 700;
+      color: #ff6b35;
+      margin-bottom: 20px;
+    }
+    
+    .dashboard-card {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .dashboard-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2) !important;
+    }
+    
+    .nav-link {
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      color: #ff6b35 !important;
+      transform: scale(1.05);
+    }
+    
+    .dropdown-item {
+      transition: all 0.3s ease;
+    }
+    
+    .dropdown-item:hover {
+      background: linear-gradient(135deg, #fff5f0 0%, #ffe8e0 100%);
+      color: #ff6b35;
+      padding-left: 20px;
+    }
+    
+    footer {
+      background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+      color: white;
+      padding: 30px 0;
+      margin-top: 60px;
+      border-radius: 50px 50px 0 0;
+      box-shadow: 0 -10px 30px rgba(255, 107, 53, 0.2);
+    }
+    
+    footer a {
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    footer a:hover {
+      color: #fff5f0;
+      transform: scale(1.1);
+    }
+    
+    #search-container {
+      position: relative;
+    }
+    
+    .search-dropdown {
+      min-height: 0;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // เพิ่ม event listener สำหรับปิด dropdown เมื่อคลิกนอก
+    document.addEventListener('click', function(event) {
+      const searchContainer = document.getElementById('search-container');
+      if (searchContainer && !searchContainer.contains(event.target)) {
+        const dropdown = document.getElementById('search-dropdown');
+        if (dropdown) {
+          dropdown.style.display = 'none';
+        }
+      }
+    });
+    
+    // เมื่อ input ว่างให้ปิด dropdown
+    const setupSearchInput = function() {
+      const searchInput = document.querySelector('#search-container input[name="q"]');
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          if (!this.value.trim()) {
+            const dropdown = document.getElementById('search-dropdown');
+            if (dropdown) {
+              dropdown.style.display = 'none';
+            }
+          }
+        });
+      }
+    };
+    
+    // Run on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupSearchInput);
+    } else {
+      setupSearchInput();
+    }
+    
+    // Re-run setup after HTMX updates
+    document.body.addEventListener('htmx:afterSwap', setupSearchInput);
+  </script>
+  {% include "navbar.html" %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      
+      {% for category, message in messages %}
+        <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+          <strong>{{message}}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+      
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><i class="bi bi-shop"></i> Food Shop</h5>
+          <p>อาหารอร่อยๆ พร้อมส่งถึงบ้านคุณ</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5><i class="bi bi-link-45deg"></i> Quick Links</h5>
+          <p>
+            <a href="{{ url_for('core.index') }}">หน้าแรก</a> | 
+            <a href="{{ url_for('food.index') }}">เมนูอาหาร</a>
+          </p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5><i class="bi bi-chat-heart"></i> Follow Us</h5>
+          <p>
+            <a href="#" class="mx-2"><i class="bi bi-facebook" style="font-size: 1.5rem;"></i></a>
+            <a href="#" class="mx-2"><i class="bi bi-instagram" style="font-size: 1.5rem;"></i></a>
+            <a href="#" class="mx-2"><i class="bi bi-twitter" style="font-size: 1.5rem;"></i></a>
+          </p>
+        </div>
+      </div>
+      <hr style="border-color: rgba(255,255,255,0.3);">
+      <p class="mb-0">© 2026 Food Shop. Made with <i class="bi bi-heart-fill"></i> by Your Team</p>
+    </div>
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

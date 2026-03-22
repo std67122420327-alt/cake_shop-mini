@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{title}}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card" style="border: none; border-radius: 25px; padding: 40px; background: white; box-shadow: 0 15px 40px rgba(0,0,0,0.1);">
+          <div class="text-center mb-4">
+            <div style="font-size: 5rem; background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+              <i class="bi bi-person-circle"></i>
+            </div>
+            <h2 class="section-title">{{title}}</h2>
+          </div>
+          <form class="row g-4" method="post">
+            <div class="col-md-6">
+              <label for="username" class="form-label" style="font-weight: 600; color: #333;">
+                <i class="bi bi-person"></i> Username
+              </label>
+              <input disabled value="{{user.username}}" type="text" class="form-control" id="username" style="border-radius: 15px; padding: 12px; background: #f5f5f5; border: 2px solid #e0e0e0;">
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label" style="font-weight: 600; color: #333;">
+                <i class="bi bi-envelope"></i> Email Address
+              </label>
+              <input disabled value="{{user.email}}" type="email" class="form-control" id="email" style="border-radius: 15px; padding: 12px; background: #f5f5f5; border: 2px solid #e0e0e0;">
+            </div>
+            <div class="col-md-6">
+              <label for="firstname" class="form-label" style="font-weight: 600; color: #333;">
+                <i class="bi bi-person-badge"></i> Firstname
+              </label>
+              <input name="firstname" value="{{user.firstname}}" type="text" class="form-control" id="firstname" style="border-radius: 15px; padding: 12px; border: 2px solid #e0e0e0;">
+            </div>
+            <div class="col-md-6">
+              <label for="lastname" class="form-label" style="font-weight: 600; color: #333;">
+                <i class="bi bi-person-badge-fill"></i> Lastname
+              </label>
+              <input name="lastname" value="{{user.lastname}}" type="text" class="form-control" id="lastname" style="border-radius: 15px; padding: 12px; border: 2px solid #e0e0e0;">
+            </div>
+            
+            <div class="col-12 mt-4">
+              <button type="submit" class="btn btn-lg w-100" style="background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%); color: white; border: none; border-radius: 15px; padding: 12px; font-weight: 700;">
+                <i class="bi bi-save"></i>
+                Update Profile
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
