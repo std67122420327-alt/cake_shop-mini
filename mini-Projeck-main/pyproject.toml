@@ -1,7 +1,7 @@
 [project]
-name = "food-go-03"
+name = "cake-yu-66"
 version = "0.1.0"
-description = "Add your description here"
+description = "ระบบจัดการร้านเค้กและเบเกอรี่ (Cake Shop Management System)"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
